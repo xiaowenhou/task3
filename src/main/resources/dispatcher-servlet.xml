@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd ">
+     -->
+	<!-- 扫描@Controller, @Service注解,告诉前端控制器应该去哪个包下扫描 -->
+	<context:component-scan base-package="com.putaoteng.task2"></context:component-scan>
+	
+	<!-- 使用注解驱动,有了注解驱动,spring才能使用识别注解,默认采用最新版本的注解驱动-->
+	<!-- 注册了Spring MVC分发请求到控制器所必须的
+	DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter实例 ,有了这两个实例,才可以使用注解-->
+	<mvc:annotation-driven/>
+	
+	<!-- 配置视图解析器,设置jsp文件的前缀和后缀 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<aop:config>
+    	<aop:aspect id="myAspectController" ref="logAdvice">
+    		<aop:pointcut expression="execution(* com.putaoteng.task2.controller.Task2UserControllerDemo.*(..))" id="pc2"/>
+    		<aop:around method="around" pointcut-ref="pc2"/>
+    	</aop:aspect>
+    </aop:config>
+</beans>

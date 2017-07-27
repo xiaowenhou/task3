@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.putaoteng.task2.dao.UserDao">
+	<insert id="addData" parameterType="com.putaoteng.task2.model.User">
+		insert into user (id, name, password) values (#{id}, #{name}, #{password})
+	</insert>
+	<delete id="deleteData" parameterType="long">
+		delete from user where id=#{id}
+	</delete>
+	<select id="queryOneById" parameterType="long" resultType="com.putaoteng.task2.model.User">
+		select * from user where id=#{id}
+	</select>
+	
+	<select id="queryAll" resultType="com.putaoteng.task2.model.User">
+		select * from user
+	</select>
+	<select id="queryListByName" parameterType="String" resultType="com.putaoteng.task2.model.User">
+		select * from user where name=#{name}
+	</select>
+	<select id="countTableLength" parameterType="String" resultType="int">
+		select count(#{0}) from user
+	</select>
+	<update id="updateData" parameterType="com.putaoteng.task2.model.User">
+		update user set id=#{id}, name=#{name}, password=#{password} where id=#{id}
+	</update>
+	
+	<update id="clearTable">
+		truncate table user
+	</update>
+</mapper>
